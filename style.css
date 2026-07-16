@@ -1,1 +1,38 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins,sans-serif;
+}
 
+body{
+  background:#0f172a;
+  color:#fff;
+}
+
+header{
+  background:linear-gradient(90deg,#2563eb,#06b6d4);
+  padding:20px;
+  text-align:center;
+}
+
+.card{
+  background:#1e293b;
+  margin:15px;
+  padding:20px;
+  border-radius:15px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+button{
+  background:#22c55e;
+  color:#fff;
+  border:none;
+  padding:12px 25px;
+  border-radius:30px;
+  cursor:pointer;
+}
