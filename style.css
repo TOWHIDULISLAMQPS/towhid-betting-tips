@@ -59,3 +59,25 @@ cursor:pointer;
 button:hover{
 background:#00b84d;
 }
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#10263d;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+border-top:2px solid #00d65f;
+}
+
+.bottom-nav a{
+color:white;
+text-decoration:none;
+text-align:center;
+font-size:14px;
+}
+
+body{
+padding-bottom:90px;
+}
