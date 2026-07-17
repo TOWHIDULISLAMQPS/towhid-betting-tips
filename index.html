@@ -162,5 +162,22 @@ Unlock VIP
 © 2026 Towhid Betting Tips
 </footer>
 
-</body>
+</body><script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "আপনার apiKey",
+  authDomain: "আপনার-project.firebaseapp.com",
+  projectId: "আপনার projectId",
+  storageBucket: "আপনার-project.firebasestorage.app",
+  messagingSenderId: "আপনার messagingSenderId",
+  appId: "আপনার appId"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+console.log("Firebase Connected!");
+</script>
 </html>
