@@ -83,9 +83,39 @@
     <a href="vip.html">🔥<span>VIP</span></a>
     <a href="profile.html">👤<span>Profile</span></a>
     <a href="login.html">Login Here</a>
-    <a href="admin.html" class="btn">🛠 Control Panel</a>
+    <a href="admin.html" id="adminLink" style="display:none;">
+    🛠 Control Panel
+</a>
 </nav>
 <script src="script.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
+  authDomain: "towhid-betting-tips.firebaseapp.com",
+  projectId: "towhid-betting-tips",
+  storageBucket: "towhid-betting-tips.firebasestorage.app",
+  messagingSenderId: "204379750828",
+  appId: "1:204379750828:web:92e498f3c5d18ead113a09"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const adminLink = document.getElementById("adminLink");
+
+  if (
+    user &&
+    user.email === "qps.towhidulislam@gmail.com"
+  ) {
+    adminLink.style.display = "block";
+  } else {
+    adminLink.style.display = "none";
+  }
+});
+</script>
 </body>
 </html>
