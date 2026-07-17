@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#071826;
+color:#fff;
+}
+
+.header{
+background:#00d95f;
+padding:20px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+}
+
+.container{
+width:90%;
+max-width:500px;
+margin:20px auto;
+}
+
+.card{
+background:#10263d;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.card h2{
+color:#00ff7f;
+margin-bottom:15px;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#00d95f;
+color:#fff;
+border:none;
+border-radius:30px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.logout{
+display:block;
+text-align:center;
+background:#ff3b30;
+color:white;
+text-decoration:none;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+🛠 Admin Panel
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>⚽ Football Tips</h2>
+
+<input type="text" placeholder="Match Name">
+<textarea placeholder="Prediction"></textarea>
+
+<button>Save Football Tip</button>
+</div>
+
+<div class="card">
+<h2>🏏 Cricket Tips</h2>
+
+<input type="text" placeholder="Match Name">
+<textarea placeholder="Prediction"></textarea>
+
+<button>Save Cricket Tip</button>
+</div>
+
+<div class="card">
+<h2>🔥 VIP Tips</h2>
+
+<textarea placeholder="VIP Prediction"></textarea>
+
+<button>Save VIP Tip</button>
+</div>
+
+<a href="login.html" class="logout">Logout</a>
+
+</div>
+
+</body>
+</html>
