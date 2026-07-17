@@ -162,22 +162,28 @@ Unlock VIP
 © 2026 Towhid Betting Tips
 </footer>
 
-</body><script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+<script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "আপনার apiKey",
-  authDomain: "আপনার-project.firebaseapp.com",
-  projectId: "আপনার projectId",
-  storageBucket: "আপনার-project.firebasestorage.app",
-  messagingSenderId: "আপনার messagingSenderId",
-  appId: "আপনার appId"
+  apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
+  authDomain: "towhid-betting-tips.firebaseapp.com",
+  projectId: "towhid-betting-tips",
+  storageBucket: "towhid-betting-tips.firebasestorage.app",
+  messagingSenderId: "204379750828",
+  appId: "1:204379750828:web:3a9ea13f2baed963113a09",
+  measurementId: "G-H6J0NXJL9V"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-console.log("Firebase Connected!");
+const analytics = getAnalytics(app);
 </script>
+</body>
 </html>
