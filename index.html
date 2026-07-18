@@ -13,15 +13,18 @@
 <h1>🔥 Towhid Betting Tips</h1>
 <p>Daily Football & Cricket Prediction</p>
 </header>
-
+    
 <section class="card">
-<h2>⚽ Football Prediction</h2>
-<div class="card">
-    <h2>⚽ Football Prediction</h2>
 
-    <div id="footballTips">
-        Loading...
-    </div>
+<h2>⚽ Football Prediction</h2>
+
+<div id="footballTips">
+Loading...
+</div>
+
+<button>Today's Football Tips</button>
+
+</section>
 
 </div>
 
@@ -97,13 +100,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/fireba
 import {
   getDatabase,
   ref,
-  push,
-  onValue,
-  remove,
-  set
+  onValue
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-
-const firebaseConfig = {
+constcfirebaseConfigonfig = {
   apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
   authDomain: "towhid-betting-tips.firebaseapp.com",
   databaseURL: "https://towhid-betting-tips-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -150,27 +149,6 @@ window.deleteFootball = function(key){
 
 }
 
-window.editFootball = function(key,match,prediction){
-
-  const newMatch = prompt("Match Name",match);
-
-  if(newMatch==null) return;
-
-  const newPrediction = prompt("Prediction",prediction);
-
-  if(newPrediction==null) return;
-
-  set(ref(db,"footballTips/"+key),{
-
-    match:newMatch,
-
-    prediction:newPrediction,
-
-    time:Date.now()
-
-  });
-
-}
 </script>
 </body>
 </html>
