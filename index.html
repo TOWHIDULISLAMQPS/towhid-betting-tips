@@ -91,14 +91,15 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
   authDomain: "towhid-betting-tips.firebaseapp.com",
+  databaseURL: "https://towhid-betting-tips-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "towhid-betting-tips",
   storageBucket: "towhid-betting-tips.firebasestorage.app",
   messagingSenderId: "204379750828",
-  appId: "1:204379750828:web:92e498f3c5d18ead113a09"
+  appId: "1:204379750828:web:92e498f3c5d18ead113a09",
+  measurementId: "G-FZB4WS9Y53"
 };
 
 const app = initializeApp(firebaseConfig);
