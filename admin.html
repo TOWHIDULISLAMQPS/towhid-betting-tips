@@ -81,7 +81,7 @@ margin-top:20px;
 <body>
 
 <div class="header">
-🛠 Admin Panel
+🛠 Admin Control Panel
 </div>
 
 <div class="container">
@@ -89,32 +89,52 @@ margin-top:20px;
 <div class="card">
 <h2>⚽ Football Tips</h2>
 
-<input type="text" placeholder="Match Name">
-<textarea placeholder="Prediction"></textarea>
+<input type="text" id="footballMatch" placeholder="Match Name">
 
-<button>Save Football Tip</button>
+<textarea id="footballPrediction" placeholder="Prediction"></textarea>
+
+<button id="saveFootball">💾 Save Football Tip</button>
+
 </div>
 
 <div class="card">
+
 <h2>🏏 Cricket Tips</h2>
 
-<input type="text" placeholder="Match Name">
-<textarea placeholder="Prediction"></textarea>
+<input type="text" id="cricketMatch" placeholder="Match Name">
 
-<button>Save Cricket Tip</button>
+<textarea id="cricketPrediction" placeholder="Prediction"></textarea>
+
+<button id="saveCricket">💾 Save Cricket Tip</button>
+
 </div>
 
 <div class="card">
+
 <h2>🔥 VIP Tips</h2>
 
-<textarea placeholder="VIP Prediction"></textarea>
+<input type="text" id="vipMatch" placeholder="VIP Match">
 
-<button>Save VIP Tip</button>
+<textarea id="vipPrediction" placeholder="VIP Prediction"></textarea>
+
+<button id="saveVip">💾 Save VIP Tip</button>
+
+</div>
+
+<div class="card">
+
+<h2>📋 Saved Tips</h2>
+
+<div id="tipsList">
+
+No tips added.
+
+</div>
+
 </div>
 
 <a href="login.html" class="logout">Logout</a>
 
 </div>
-
 </body>
 </html>
