@@ -143,12 +143,13 @@ margin-top:20px;
 
 </div>
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import {
   getDatabase,
   ref,
   push,
-  onValue
+  onValue,
+  remove,
+  update
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
 const firebaseConfig = {
