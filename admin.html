@@ -236,21 +236,27 @@ window.deleteFootball = function(key){
   }
 
 }
-window.editFootball = function(key){
+globalThis.deleteFootball = function(key){
 
-  const match = prompt("New Match Name");
-  if(match==null) return;
+    if(confirm("Delete this tip?")){
+        remove(ref(db,"footballTips/"+key));
+    }
 
-  const prediction = prompt("New Prediction");
-  if(prediction==null) return;
+}
 
-  set(ref(db,"footballTips/"+key),{
+globalThis.editFootball = function(key){
 
-    match: match,
-    prediction: prediction,
-    time: Date.now()
+    const old = prompt("New Match Name");
+    if(old===null) return;
 
-  });
+    const pre = prompt("New Prediction");
+    if(pre===null) return;
+
+    set(ref(db,"footballTips/"+key),{
+        match: old,
+        prediction: pre,
+        time: Date.now()
+    });
 
 }
 </script>
