@@ -276,6 +276,91 @@ globalThis.editFootball = function(key,match,prediction){
     });
 
 }
+document.getElementById("saveCricket").addEventListener("click", () => {
+
+    const match = document.getElementById("cricketMatch").value.trim();
+    const prediction = document.getElementById("cricketPrediction").value.trim();
+
+    if(match==="" || prediction===""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    push(ref(db,"cricketTips"),{
+        match:match,
+        prediction:prediction,
+        time:Date.now()
+    }).then(()=>{
+        alert("Cricket Tip Saved Successfully");
+
+        document.getElementById("cricketMatch").value="";
+        document.getElementById("cricketPrediction").value="";
+    });
+
+});
+const cricketList = document.getElementById("cricketList");
+
+onValue(ref(db,"cricketTips"),(snapshot)=>{
+
+    cricketList.innerHTML="";
+
+    let i=1;
+
+    snapshot.forEach((child)=>{
+
+        const key=child.key;
+        const data=child.val();
+
+        cricketList.innerHTML+=`
+        <div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
+
+        <b>${i}. ${data.match}</b><br>
+        ${data.prediction}<br><br>
+
+        <button onclick="editCricket('${key}','${data.match.replace(/'/g,"\\'")}','${data.prediction.replace(/'/g,"\\'")}')">
+        ✏ Edit
+        </button>
+
+        <button onclick="deleteCricket('${key}')" style="background:red">
+        🗑 Delete
+        </button>
+
+        </div>
+        `;
+
+        i++;
+
+    });
+
+});
+globalThis.deleteCricket=function(key){
+
+    if(confirm("Delete this tip?")){
+
+        remove(ref(db,"cricketTips/"+key));
+
+    }
+
+}
+globalThis.editCricket=function(key,match,prediction){
+
+    const newMatch=prompt("Match Name",match);
+    if(newMatch===null) return;
+
+    const newPrediction=prompt("Prediction",prediction);
+    if(newPrediction===null) return;
+
+    set(ref(db,"cricketTips/"+key),{
+
+        match:newMatch,
+        prediction:newPrediction,
+        time:Date.now()
+
+    }).then(()=>{
+        alert("Cricket Tip Updated Successfully");
+    });
+
+}
 </script>
 </body>
 </html>
