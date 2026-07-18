@@ -227,6 +227,32 @@ onValue(ref(db, "footballTips"), (snapshot) => {
   });
 
 });
+window.deleteFootball = function(key){
+
+  if(confirm("Delete this tip?")){
+
+    remove(ref(db,"footballTips/"+key));
+
+  }
+
+}
+window.editFootball = function(key){
+
+  const match = prompt("New Match Name");
+  if(match==null) return;
+
+  const prediction = prompt("New Prediction");
+  if(prediction==null) return;
+
+  set(ref(db,"footballTips/"+key),{
+
+    match: match,
+    prediction: prediction,
+    time: Date.now()
+
+  });
+
+}
 </script>
 </body>
 </html>
