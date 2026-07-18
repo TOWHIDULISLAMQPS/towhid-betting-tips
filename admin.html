@@ -151,7 +151,8 @@ import {
   push,
   onValue,
   remove,
-  set
+  set,
+  get
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -304,9 +305,18 @@ onValue(ref(db,"cricketTips"),(snapshot)=>{
 
     cricketList.innerHTML="";
 
+    if(!snapshot.exists()){
+        cricketList.innerHTML="No Cricket Tips";
+        return;
+    }
+
     let i=1;
 
     snapshot.forEach((child)=>{
+        ...
+    });
+
+});
 
         const key=child.key;
         const data=child.val();
@@ -318,9 +328,7 @@ onValue(ref(db,"cricketTips"),(snapshot)=>{
         ${data.prediction}<br><br>
 <button
 style="background:#ff9800;width:48%;margin-right:2%;"
-onclick="editCricket('${key}')">
-✏ Edit
-</button>
+<button onclick="deleteCricket('${key}')" style="background:red">
 
         <button onclick="deleteCricket('${key}')" style="background:red">
         🗑 Delete
@@ -345,7 +353,7 @@ globalThis.deleteCricket=function(key){
 }
 globalThis.editCricket = async function(key){
 
-    const snapshot = await get(ref(db,"cricketTips/"+key));
+  const snapshot = await get(ref(db,"cricketTips/"+key));
 
     if(!snapshot.exists()){
         alert("Tip not found");
