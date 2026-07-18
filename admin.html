@@ -210,24 +210,21 @@ onValue(ref(db, "footballTips"), (snapshot) => {
     const key = child.key;
     const data = child.val();
 
-    footballList.innerHTML += `
-    <div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
-      <b>${i}. ${data.match}</b><br>
-      ${data.prediction}<br><br>
+footballList.innerHTML += `
+<div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
+<b>${i}. ${data.match}</b><br>
+${data.prediction}<br><br>
 
-      <button onclick="editFootball('${key}')">✏ Edit</button>
+<button onclick="editFootball('${key}','${data.match}','${data.prediction}')">
+✏ Edit
+</button>
 
-      <button onclick="deleteFootball('${key}')" style="background:red">
-      🗑 Delete
-      </button>
-    </div>
-    `;
+<button onclick="deleteFootball('${key}')" style="background:red">
+🗑 Delete
+</button>
 
-    i++;
-  });
-
-});
-
+</div>
+`;
 globalThis.deleteFootball = function(key){
 
     if(confirm("Delete this tip?")){
