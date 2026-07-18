@@ -143,13 +143,14 @@ margin-top:20px;
 
 </div>
 <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
 import {
   getDatabase,
   ref,
   push,
-  onValue,
-  remove,
-  update
+  onValue
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -165,53 +166,66 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Football Save
+// SAVE FOOTBALL TIP
 document.getElementById("saveFootball").addEventListener("click", () => {
 
-  const match = document.getElementById("footballMatch").value.trim();
-  const prediction = document.getElementById("footballPrediction").value.trim();
+    const match = document.getElementById("footballMatch").value.trim();
+    const prediction = document.getElementById("footballPrediction").value.trim();
 
-  if (!match || !prediction) {
-    alert("Please fill all fields");
-    return;
-  }
+    if(match==="" || prediction===""){
+        alert("Please fill all fields");
+        return;
+    }
 
-  push(ref(db, "footballTips"), {
-    match,
-    prediction,
-    time: Date.now()
-  }).then(() => {
-    alert("Football Tip Saved");
+    push(ref(db,"footballTips"),{
+        match:match,
+        prediction:prediction,
+        time:Date.now()
+    })
+    .then(()=>{
+        alert("Football Tip Saved Successfully");
 
-    document.getElementById("footballMatch").value = "";
-    document.getElementById("footballPrediction").value = "";
-  });
-});
-
-// Football List
-const footballList = document.getElementById("footballList");
-
-onValue(ref(db, "footballTips"), (snapshot) => {
-
-  footballList.innerHTML = "";
-
-  let i = 1;
-
-  snapshot.forEach((child) => {
-
-    const data = child.val();
-
-    footballList.innerHTML += `
-      <div style="padding:10px;border-bottom:1px solid #555">
-      <b>${i}. ${data.match}</b><br>
-      ${data.prediction}
-      </div>
-    `;
-
-    i++;
-  });
+        document.getElementById("footballMatch").value="";
+        document.getElementById("footballPrediction").value="";
+    })
+    .catch((error)=>{
+        alert(error.message);
+        console.log(error);
+    });
 
 });
+
+// SHOW FOOTBALL TIPS
+const footballList=document.getElementById("footballList");
+
+onValue(ref(db,"footballTips"),(snapshot)=>{
+
+    footballList.innerHTML="";
+
+    let i=1;
+
+    if(!snapshot.exists()){
+        footballList.innerHTML="No Football Tips";
+        return;
+    }
+
+    snapshot.forEach((child)=>{
+
+        const data=child.val();
+
+        footballList.innerHTML+=`
+        <div style="background:#18334f;padding:12px;margin:10px 0;border-radius:10px">
+        <b>${i}. ${data.match}</b><br><br>
+        ${data.prediction}
+        </div>
+        `;
+
+        i++;
+
+    });
+
+});
+
 </script>
 </body>
 </html>
