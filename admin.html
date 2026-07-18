@@ -197,36 +197,36 @@ document.getElementById("saveFootball").addEventListener("click", () => {
 });
 
 // SHOW FOOTBALL TIPS
-const footballList=document.getElementById("footballList");
+const footballList = document.getElementById("footballList");
 
-onValue(ref(db,"footballTips"),(snapshot)=>{
+onValue(ref(db, "footballTips"), (snapshot) => {
 
-    footballList.innerHTML="";
+  footballList.innerHTML = "";
 
-    let i=1;
+  let i = 1;
 
-    if(!snapshot.exists()){
-        footballList.innerHTML="No Football Tips";
-        return;
-    }
+  snapshot.forEach((child) => {
 
-    snapshot.forEach((child)=>{
+    const key = child.key;
+    const data = child.val();
 
-        const data=child.val();
+    footballList.innerHTML += `
+    <div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
+      <b>${i}. ${data.match}</b><br>
+      ${data.prediction}<br><br>
 
-        footballList.innerHTML+=`
-        <div style="background:#18334f;padding:12px;margin:10px 0;border-radius:10px">
-        <b>${i}. ${data.match}</b><br><br>
-        ${data.prediction}
-        </div>
-        `;
+      <button onclick="editFootball('${key}')">✏ Edit</button>
 
-        i++;
+      <button onclick="deleteFootball('${key}')" style="background:red">
+      🗑 Delete
+      </button>
+    </div>
+    `;
 
-    });
+    i++;
+  });
 
 });
-
 </script>
 </body>
 </html>
