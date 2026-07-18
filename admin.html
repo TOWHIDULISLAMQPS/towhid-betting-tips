@@ -316,10 +316,11 @@ onValue(ref(db,"cricketTips"),(snapshot)=>{
 
         <b>${i}. ${data.match}</b><br>
         ${data.prediction}<br><br>
-
-        <button onclick="editCricket('${key}','${data.match.replace(/'/g,"\\'")}','${data.prediction.replace(/'/g,"\\'")}')">
-        ✏ Edit
-        </button>
+<button
+style="background:#ff9800;width:48%;margin-right:2%;"
+onclick="editCricket('${key}')">
+✏ Edit
+</button>
 
         <button onclick="deleteCricket('${key}')" style="background:red">
         🗑 Delete
@@ -342,22 +343,29 @@ globalThis.deleteCricket=function(key){
     }
 
 }
-globalThis.editCricket=function(key,match,prediction){
+globalThis.editCricket = async function(key){
 
-    const newMatch=prompt("Match Name",match);
-    if(newMatch===null) return;
+    const snapshot = await get(ref(db,"cricketTips/"+key));
 
-    const newPrediction=prompt("Prediction",prediction);
-    if(newPrediction===null) return;
+    if(!snapshot.exists()){
+        alert("Tip not found");
+        return;
+    }
+
+    const data = snapshot.val();
+
+    const newMatch = prompt("Match Name", data.match);
+    if(newMatch === null) return;
+
+    const newPrediction = prompt("Prediction", data.prediction);
+    if(newPrediction === null) return;
 
     set(ref(db,"cricketTips/"+key),{
-
         match:newMatch,
         prediction:newPrediction,
         time:Date.now()
-
     }).then(()=>{
-        alert("Cricket Tip Updated Successfully");
+        alert("Updated Successfully");
     });
 
 }
