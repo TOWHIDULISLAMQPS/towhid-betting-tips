@@ -235,19 +235,18 @@ globalThis.deleteFootball = function(key){
     }
 
 }
+  globalThis.editFootball = function(key,match,prediction){
 
-globalThis.editFootball = function(key){
+    const newMatch = prompt("Match Name",match);
+    if(newMatch===null) return;
 
-    const old = prompt("New Match Name");
-    if(old===null) return;
-
-    const pre = prompt("New Prediction");
-    if(pre===null) return;
+    const newPrediction = prompt("Prediction",prediction);
+    if(newPrediction===null) return;
 
     set(ref(db,"footballTips/"+key),{
-        match: old,
-        prediction: pre,
-        time: Date.now()
+        match:newMatch,
+        prediction:newPrediction,
+        time:Date.now()
     });
 
 }
