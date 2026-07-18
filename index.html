@@ -16,10 +16,14 @@
 
 <section class="card">
 <h2>⚽ Football Prediction</h2>
+<div class="card">
+    <h2>⚽ Football Prediction</h2>
 
-<h3>Manchester City vs Arsenal</h3>
+    <div id="footballTips">
+        Loading...
+    </div>
 
-<p>Prediction : Manchester City Win ✅</p>
+</div>
 
 <button>Today's Football Tips</button>
 
@@ -90,7 +94,8 @@
 <script src="script.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
   authDomain: "towhid-betting-tips.firebaseapp.com",
@@ -98,24 +103,34 @@ const firebaseConfig = {
   projectId: "towhid-betting-tips",
   storageBucket: "towhid-betting-tips.firebasestorage.app",
   messagingSenderId: "204379750828",
-  appId: "1:204379750828:web:92e498f3c5d18ead113a09",
-  measurementId: "G-FZB4WS9Y53"
+  appId: "1:204379750828:web:92e498f3c5d18ead113a09"
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const db = getDatabase(app);
 
-onAuthStateChanged(auth, (user) => {
-  const adminLink = document.getElementById("adminLink");
+const footballDiv = document.getElementById("footballTips");
 
-  if (
-    user &&
-    user.email === "qps.towhidulislam@gmail.com"
-  ) {
-    adminLink.style.display = "block";
-  } else {
-    adminLink.style.display = "none";
-  }
+onValue(ref(db, "footballTips"), (snapshot) => {
+
+    footballDiv.innerHTML = "";
+
+    let i = 1;
+
+    snapshot.forEach((child) => {
+
+        const data = child.val();
+
+        footballDiv.innerHTML += `
+        <div style="padding:12px;border-bottom:1px solid #333">
+            <h3>${i}. ${data.match}</h3>
+            <p>${data.prediction}</p>
+        </div>
+        `;
+
+        i++;
+    });
+
 });
 </script>
 </body>
