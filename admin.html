@@ -7,172 +7,266 @@
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-background:#071826;
-color:#fff;
+    background:#071826;
+    color:#fff;
 }
 
 .header{
-background:#00d95f;
-padding:20px;
-text-align:center;
-font-size:28px;
-font-weight:bold;
+    background:#00d95f;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
 }
 
 .container{
-width:90%;
-max-width:500px;
-margin:20px auto;
+    width:90%;
+    max-width:600px;
+    margin:20px auto;
 }
 
 .card{
-background:#10263d;
-padding:20px;
-border-radius:15px;
-margin-bottom:20px;
+    background:#10263d;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
 }
 
 .card h2{
-color:#00ff7f;
-margin-bottom:15px;
+    color:#00ff7f;
+    margin-bottom:15px;
 }
 
-input,textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:8px;
-font-size:16px;
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    outline:none;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
 }
 
 button{
-width:100%;
-padding:15px;
-background:#00d95f;
-color:#fff;
-border:none;
-border-radius:30px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
+    width:100%;
+    padding:14px;
+    background:#00d95f;
+    color:#fff;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#00b84d;
+}
+
+.tipBox{
+    background:#1a2d45;
+    padding:12px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.tipTitle{
+    color:#00ff7f;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.action{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.editBtn{
+    flex:1;
+    background:#ff9800;
+}
+
+.deleteBtn{
+    flex:1;
+    background:#f44336;
 }
 
 .logout{
-display:block;
-text-align:center;
-background:#ff3b30;
-color:white;
-text-decoration:none;
-padding:15px;
-border-radius:10px;
-margin-top:20px;
+    display:block;
+    text-align:center;
+    background:#ff3b30;
+    color:#fff;
+    text-decoration:none;
+    padding:15px;
+    border-radius:10px;
+    margin:20px 0;
+    font-weight:bold;
 }
 </style>
 </head>
 
 <body>
+
 <div class="header">
 🛠 Admin Control Panel
 </div>
 
 <div class="container">
 
+<!-- Football -->
+
 <div class="card">
+
 <h2>⚽ Football Tips</h2>
 
-<input type="text" id="footballMatch" placeholder="Match Name">
+<input
+type="text"
+id="footballMatch"
+placeholder="Match Name">
 
-<textarea id="footballPrediction" placeholder="Prediction"></textarea>
+<textarea
+id="footballPrediction"
+placeholder="Prediction"></textarea>
 
-<button id="saveFootball">💾 Save Football Tip</button>
+<button id="saveFootball">
+💾 Save Football Tip
+</button>
 
 </div>
 
+<!-- Cricket -->
+
 <div class="card">
+
 <h2>🏏 Cricket Tips</h2>
 
-<input type="text" id="cricketMatch" placeholder="Match Name">
+<input
+type="text"
+id="cricketMatch"
+placeholder="Match Name">
 
-<textarea id="cricketPrediction" placeholder="Prediction"></textarea>
+<textarea
+id="cricketPrediction"
+placeholder="Prediction"></textarea>
 
-<button id="saveCricket">💾 Save Cricket Tip</button>
+<button id="saveCricket">
+💾 Save Cricket Tip
+</button>
 
 </div>
 
+<!-- VIP -->
+
 <div class="card">
+
 <h2>🔥 VIP Tips</h2>
 
-<input type="text" id="vipMatch" placeholder="VIP Match">
+<input
+type="text"
+id="vipMatch"
+placeholder="VIP Match">
 
-<textarea id="vipPrediction" placeholder="VIP Prediction"></textarea>
+<textarea
+id="vipPrediction"
+placeholder="VIP Prediction"></textarea>
 
-<button id="saveVip">💾 Save VIP Tip</button>
+<button id="saveVip">
+💾 Save VIP Tip
+</button>
 
 </div>
 
+<!-- Saved Football -->
+
 <div class="card">
+
 <h2>📋 Saved Football Tips</h2>
 
-<div id="footballList"></div>
+<div id="footballList">
+No Football Tips
+</div>
 
 </div>
 
+<!-- Saved Cricket -->
+
 <div class="card">
+
 <h2>📋 Saved Cricket Tips</h2>
 
-<div id="cricketList"></div>
+<div id="cricketList">
+No Cricket Tips
+</div>
 
 </div>
+
+<!-- Saved VIP -->
 
 <div class="card">
+
 <h2>📋 Saved VIP Tips</h2>
 
-<div id="vipList"></div>
+<div id="vipList">
+No VIP Tips
+</div>
 
 </div>
 
-<a href="login.html" class="logout">Logout</a>
+<a href="login.html" class="logout">
+Logout
+</a>
 
 </div>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import {
-  getDatabase,
-  ref,
-  push,
-  onValue,
-  remove,
-  set,
-  get
+    getDatabase,
+    ref,
+    push,
+    onValue,
+    remove,
+    set
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
-  authDomain: "towhid-betting-tips.firebaseapp.com",
-  databaseURL: "https://towhid-betting-tips-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "towhid-betting-tips",
-  storageBucket: "towhid-betting-tips.firebasestorage.app",
-  messagingSenderId: "204379750828",
-  appId: "1:204379750828:web:92e498f3c5d18ead113a09"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// SAVE FOOTBALL TIP
-document.getElementById("saveFootball").addEventListener("click", () => {
+/* ==========================
+   FOOTBALL SAVE
+========================== */
 
-    const match = document.getElementById("footballMatch").value.trim();
-    const prediction = document.getElementById("footballPrediction").value.trim();
+document.getElementById("saveFootball").addEventListener("click",()=>{
+
+    const match=document.getElementById("footballMatch").value.trim();
+    const prediction=document.getElementById("footballPrediction").value.trim();
 
     if(match==="" || prediction===""){
         alert("Please fill all fields");
@@ -180,203 +274,439 @@ document.getElementById("saveFootball").addEventListener("click", () => {
     }
 
     push(ref(db,"footballTips"),{
+
         match:match,
         prediction:prediction,
         time:Date.now()
-    })
-    .then(()=>{
-        alert("Football Tip Saved Successfully");
+
+    }).then(()=>{
+
+        alert("Football Tip Saved");
 
         document.getElementById("footballMatch").value="";
         document.getElementById("footballPrediction").value="";
-    })
-    .catch((error)=>{
-        alert(error.message);
-        console.log(error);
+
     });
 
 });
 
-// SHOW FOOTBALL TIPS
-const footballList = document.getElementById("footballList");
+/* ==========================
+   FOOTBALL SHOW
+========================== */
 
-onValue(ref(db, "footballTips"), (snapshot) => {
+const footballList=document.getElementById("footballList");
 
-    footballList.innerHTML = "";
+onValue(ref(db,"footballTips"),(snapshot)=>{
+
+    footballList.innerHTML="";
 
     if(!snapshot.exists()){
-        footballList.innerHTML = "No Football Tips";
+
+        footballList.innerHTML="No Football Tips";
+
         return;
+
     }
 
-    let i = 1;
+    let number=1;
 
-    snapshot.forEach((child)=>{
+    const data=[];
 
-        const key = child.key;
-        const data = child.val();
+    snapshot.forEach(child=>{
 
-        footballList.innerHTML += `
-        <div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:10px">
-
-            <b>${i}. ${data.match}</b><br>
-            ${data.prediction}<br><br>
-
-            <button
-            style="background:#ff9800;width:48%;margin-right:2%;"
-            onclick="editFootball('${key}', '${data.match.replace(/'/g,"\\'")}', '${data.prediction.replace(/'/g,"\\'")}')">
-            ✏ Edit
-            </button>
-
-            <button
-            style="background:#f44336;width:48%;"
-            onclick="deleteFootball('${key}')">
-            🗑 Delete
-            </button>
-
-        </div>
-        `;
-
-        i++;
-
-    });
-
-});
-
-// Delete
-globalThis.deleteFootball = function(key){
-
-    if(confirm("Delete this tip?")){
-
-        remove(ref(db,"footballTips/"+key))
-        .then(()=>{
-            alert("Deleted Successfully");
+        data.push({
+            key:child.key,
+            ...child.val()
         });
 
-    }
-
-}
-
-// Edit
-globalThis.editFootball = function(key,match,prediction){
-
-    const newMatch = prompt("Match Name",match);
-    if(newMatch===null) return;
-
-    const newPrediction = prompt("Prediction",prediction);
-    if(newPrediction===null) return;
-
-    set(ref(db,"footballTips/"+key),{
-
-        match:newMatch,
-        prediction:newPrediction,
-        time:Date.now()
-
-    }).then(()=>{
-        alert("Updated Successfully");
     });
 
-}
-document.getElementById("saveCricket").addEventListener("click", () => {
+    data.sort((a,b)=>b.time-a.time);
 
-    const match = document.getElementById("cricketMatch").value.trim();
-    const prediction = document.getElementById("cricketPrediction").value.trim();
+    data.forEach(item=>{
 
-    if(match==="" || prediction===""){
-        alert("Please fill all fields");
-        return;
-    }
+        footballList.innerHTML+=`
 
-    push(ref(db,"cricketTips"),{
-        match:match,
-        prediction:prediction,
-        time:Date.now()
-    }).then(()=>{
-        alert("Cricket Tip Saved Successfully");
+<div class="tipBox">
 
-        document.getElementById("cricketMatch").value="";
-        document.getElementById("cricketPrediction").value="";
-    });
+<div class="tipTitle">
+${number}. ${item.match}
+</div>
+
+<div>
+${item.prediction}
+</div>
+
+<div class="action">
+
+<button
+class="editBtn"
+onclick="editFootball('${item.key}','${item.match.replace(/'/g,"\\'")}','${item.prediction.replace(/'/g,"\\'")}')">
+
+✏ Edit
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteFootball('${item.key}')">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+number++;
 
 });
-const cricketList = document.getElementById("cricketList");
+
+});
+
+/* ==========================
+   FOOTBALL DELETE
+========================== */
+
+globalThis.deleteFootball=function(key){
+
+if(confirm("Delete this tip?")){
+
+remove(ref(db,"footballTips/"+key));
+
+}
+
+}
+
+/* ==========================
+   FOOTBALL EDIT
+========================== */
+
+globalThis.editFootball=function(key,match,prediction){
+
+const newMatch=prompt("Match Name",match);
+
+if(newMatch===null) return;
+
+const newPrediction=prompt("Prediction",prediction);
+
+if(newPrediction===null) return;
+
+set(ref(db,"footballTips/"+key),{
+
+match:newMatch,
+
+prediction:newPrediction,
+
+time:Date.now()
+
+}).then(()=>{
+
+alert("Updated Successfully");
+
+});
+
+}
+/* ==========================
+   CRICKET SAVE
+========================== */
+
+document.getElementById("saveCricket").addEventListener("click",()=>{
+
+const match=document.getElementById("cricketMatch").value.trim();
+const prediction=document.getElementById("cricketPrediction").value.trim();
+
+if(match==="" || prediction===""){
+alert("Please fill all fields");
+return;
+}
+
+push(ref(db,"cricketTips"),{
+
+match:match,
+prediction:prediction,
+time:Date.now()
+
+}).then(()=>{
+
+alert("Cricket Tip Saved");
+
+document.getElementById("cricketMatch").value="";
+document.getElementById("cricketPrediction").value="";
+
+});
+
+});
+
+
+/* ==========================
+   CRICKET SHOW
+========================== */
+
+const cricketList=document.getElementById("cricketList");
 
 onValue(ref(db,"cricketTips"),(snapshot)=>{
 
-    cricketList.innerHTML="";
+cricketList.innerHTML="";
 
-    if(!snapshot.exists()){
-        cricketList.innerHTML="No Cricket Tips";
-        return;
-    }
+if(!snapshot.exists()){
 
-    let i=1;
+cricketList.innerHTML="No Cricket Tips";
+return;
 
-    snapshot.forEach((child)=>{
-        ...
-    });
+}
+
+let number=1;
+
+const data=[];
+
+snapshot.forEach(child=>{
+
+data.push({
+key:child.key,
+...child.val()
+});
 
 });
 
-        const key=child.key;
-        const data=child.val();
+data.sort((a,b)=>b.time-a.time);
 
-        cricketList.innerHTML+=`
-        <div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
+data.forEach(item=>{
 
-        <b>${i}. ${data.match}</b><br>
-        ${data.prediction}<br><br>
+cricketList.innerHTML+=`
+
+<div class="tipBox">
+
+<div class="tipTitle">
+${number}. ${item.match}
+</div>
+
+<div>
+${item.prediction}
+</div>
+
+<div class="action">
+
 <button
-style="background:#ff9800;width:48%;margin-right:2%;"
-<button onclick="deleteCricket('${key}')" style="background:red">
+class="editBtn"
+onclick="editCricket('${item.key}','${item.match.replace(/'/g,"\\'")}','${item.prediction.replace(/'/g,"\\'")}')">
 
-        <button onclick="deleteCricket('${key}')" style="background:red">
-        🗑 Delete
-        </button>
+✏ Edit
 
-        </div>
-        `;
+</button>
 
-        i++;
+<button
+class="deleteBtn"
+onclick="deleteCricket('${item.key}')">
 
-    });
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+number++;
 
 });
+
+});
+
+
+/* ==========================
+   CRICKET DELETE
+========================== */
+
 globalThis.deleteCricket=function(key){
 
-    if(confirm("Delete this tip?")){
+if(confirm("Delete this tip?")){
 
-        remove(ref(db,"cricketTips/"+key));
-
-    }
+remove(ref(db,"cricketTips/"+key));
 
 }
-globalThis.editCricket = async function(key){
-
-  const snapshot = await get(ref(db,"cricketTips/"+key));
-
-    if(!snapshot.exists()){
-        alert("Tip not found");
-        return;
-    }
-
-    const data = snapshot.val();
-
-    const newMatch = prompt("Match Name", data.match);
-    if(newMatch === null) return;
-
-    const newPrediction = prompt("Prediction", data.prediction);
-    if(newPrediction === null) return;
-
-    set(ref(db,"cricketTips/"+key),{
-        match:newMatch,
-        prediction:newPrediction,
-        time:Date.now()
-    }).then(()=>{
-        alert("Updated Successfully");
-    });
 
 }
+
+
+/* ==========================
+   CRICKET EDIT
+========================== */
+
+globalThis.editCricket=function(key,match,prediction){
+
+const newMatch=prompt("Match Name",match);
+
+if(newMatch===null) return;
+
+const newPrediction=prompt("Prediction",prediction);
+
+if(newPrediction===null) return;
+
+set(ref(db,"cricketTips/"+key),{
+
+match:newMatch,
+prediction:newPrediction,
+time:Date.now()
+
+}).then(()=>{
+
+alert("Updated Successfully");
+
+});
+
+}
+/* ==========================
+   VIP SAVE
+========================== */
+
+document.getElementById("saveVip").addEventListener("click",()=>{
+
+const match=document.getElementById("vipMatch").value.trim();
+const prediction=document.getElementById("vipPrediction").value.trim();
+
+if(match==="" || prediction===""){
+alert("Please fill all fields");
+return;
+}
+
+push(ref(db,"vipTips"),{
+
+match:match,
+prediction:prediction,
+time:Date.now()
+
+}).then(()=>{
+
+alert("VIP Tip Saved");
+
+document.getElementById("vipMatch").value="";
+document.getElementById("vipPrediction").value="";
+
+});
+
+});
+
+
+/* ==========================
+   VIP SHOW
+========================== */
+
+const vipList=document.getElementById("vipList");
+
+onValue(ref(db,"vipTips"),(snapshot)=>{
+
+vipList.innerHTML="";
+
+if(!snapshot.exists()){
+
+vipList.innerHTML="No VIP Tips";
+return;
+
+}
+
+let number=1;
+
+const data=[];
+
+snapshot.forEach(child=>{
+
+data.push({
+key:child.key,
+...child.val()
+});
+
+});
+
+data.sort((a,b)=>b.time-a.time);
+
+data.forEach(item=>{
+
+vipList.innerHTML+=`
+
+<div class="tipBox">
+
+<div class="tipTitle">
+${number}. ${item.match}
+</div>
+
+<div>
+${item.prediction}
+</div>
+
+<div class="action">
+
+<button
+class="editBtn"
+onclick="editVip('${item.key}','${item.match.replace(/'/g,"\\'")}','${item.prediction.replace(/'/g,"\\'")}')">
+✏ Edit
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteVip('${item.key}')">
+🗑 Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+number++;
+
+});
+
+});
+
+
+/* ==========================
+   VIP DELETE
+========================== */
+
+globalThis.deleteVip=function(key){
+
+if(confirm("Delete this tip?")){
+
+remove(ref(db,"vipTips/"+key));
+
+}
+
+}
+
+
+/* ==========================
+   VIP EDIT
+========================== */
+
+globalThis.editVip=function(key,match,prediction){
+
+const newMatch=prompt("Match Name",match);
+if(newMatch===null) return;
+
+const newPrediction=prompt("Prediction",prediction);
+if(newPrediction===null) return;
+
+set(ref(db,"vipTips/"+key),{
+
+match:newMatch,
+prediction:newPrediction,
+time:Date.now()
+
+}).then(()=>{
+
+alert("Updated Successfully");
+
+});
+
+}
+
 </script>
 </body>
 </html>
