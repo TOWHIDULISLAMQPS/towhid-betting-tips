@@ -142,6 +142,75 @@ margin-top:20px;
 <a href="login.html" class="logout">Logout</a>
 
 </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
+  authDomain: "towhid-betting-tips.firebaseapp.com",
+  databaseURL: "https://towhid-betting-tips-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "towhid-betting-tips",
+  storageBucket: "towhid-betting-tips.firebasestorage.app",
+  messagingSenderId: "204379750828",
+  appId: "1:204379750828:web:92e498f3c5d18ead113a09"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Football Save
+document.getElementById("saveFootball").addEventListener("click", () => {
+
+  const match = document.getElementById("footballMatch").value.trim();
+  const prediction = document.getElementById("footballPrediction").value.trim();
+
+  if (!match || !prediction) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  push(ref(db, "footballTips"), {
+    match,
+    prediction,
+    time: Date.now()
+  }).then(() => {
+    alert("Football Tip Saved");
+
+    document.getElementById("footballMatch").value = "";
+    document.getElementById("footballPrediction").value = "";
+  });
+});
+
+// Football List
+const footballList = document.getElementById("footballList");
+
+onValue(ref(db, "footballTips"), (snapshot) => {
+
+  footballList.innerHTML = "";
+
+  let i = 1;
+
+  snapshot.forEach((child) => {
+
+    const data = child.val();
+
+    footballList.innerHTML += `
+      <div style="padding:10px;border-bottom:1px solid #555">
+      <b>${i}. ${data.match}</b><br>
+      ${data.prediction}
+      </div>
+    `;
+
+    i++;
+  });
+
+});
+</script>
 </body>
 </html>
