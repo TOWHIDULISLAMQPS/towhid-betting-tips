@@ -227,15 +227,7 @@ onValue(ref(db, "footballTips"), (snapshot) => {
   });
 
 });
-window.deleteFootball = function(key){
 
-  if(confirm("Delete this tip?")){
-
-    remove(ref(db,"footballTips/"+key));
-
-  }
-
-}
 globalThis.deleteFootball = function(key){
 
     if(confirm("Delete this tip?")){
