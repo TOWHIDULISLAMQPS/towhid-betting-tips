@@ -79,7 +79,6 @@ margin-top:20px;
 </head>
 
 <body>
-
 <div class="header">
 🛠 Admin Control Panel
 </div>
@@ -88,17 +87,27 @@ margin-top:20px;
 
 <div class="card">
 <h2>⚽ Football Tips</h2>
-  
+
 <input type="text" id="footballMatch" placeholder="Match Name">
 
 <textarea id="footballPrediction" placeholder="Prediction"></textarea>
 
-<button id="saveFootball">Save Football Tip</button>
+<button id="saveFootball">💾 Save Football Tip</button>
 
 </div>
 
 <div class="card">
+<h2>🏏 Cricket Tips</h2>
 
+<input type="text" id="cricketMatch" placeholder="Match Name">
+
+<textarea id="cricketPrediction" placeholder="Prediction"></textarea>
+
+<button id="saveCricket">💾 Save Cricket Tip</button>
+
+</div>
+
+<div class="card">
 <h2>🔥 VIP Tips</h2>
 
 <input type="text" id="vipMatch" placeholder="VIP Match">
@@ -110,88 +119,29 @@ margin-top:20px;
 </div>
 
 <div class="card">
+<h2>📋 Saved Football Tips</h2>
 
-<h2>📋 Saved Tips</h2>
-
-<div id="tipsList">
-
-No tips added.
+<div id="footballList"></div>
 
 </div>
+
+<div class="card">
+<h2>📋 Saved Cricket Tips</h2>
+
+<div id="cricketList"></div>
+
+</div>
+
+<div class="card">
+<h2>📋 Saved VIP Tips</h2>
+
+<div id="vipList"></div>
 
 </div>
 
 <a href="login.html" class="logout">Logout</a>
 
 </div>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
-console.log("Realtime Database Connected");
-</script>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-
-document.getElementById("saveFootball").addEventListener("click", () => {
-
-  const match = document.getElementById("footballMatch").value.trim();
-  const prediction = document.getElementById("footballPrediction").value.trim();
-
-  if (!match || !prediction) {
-    alert("Please enter Match Name and Prediction");
-    return;
-  }
-
-  push(ref(db, "footballTips"), {
-    match: match,
-    prediction: prediction,
-    createdAt: Date.now()
-  })
-  .then(() => {
-    alert("Football Tip Saved Successfully!");
-    document.getElementById("footballMatch").value = "";
-    document.getElementById("footballPrediction").value = "";
-  })
-  .catch((error) => {
-    alert(error.message);
-  });
-
-});
-</script>
-  <script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-
-const firebaseConfig = {
-apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
-authDomainomain: "towhid-betting-tips.firebaseapp.com",
-  databaseURL: "https://towhid-betting-tips-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "towhid-betting-tips",
-  storageBucket: "towhid-betting-tips.firebasestorage.app",
-  messagingSenderId: "204379750828",
-  appId: "1:204379750828:web:92e498f3c5d18ead113a09"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-window.saveFootball = function () {
-
-  const match = document.getElementById("footballMatch").value;
-  const prediction = document.getElementById("footballPrediction").value;
-
-  push(ref(db, "footballTips"), {
-    match: match,
-    prediction: prediction
-  }).then(() => {
-    alert("Saved Successfully");
-  });
-
-};
-
-</script>
 </body>
 </html>
