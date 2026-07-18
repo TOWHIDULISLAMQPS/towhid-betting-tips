@@ -30,12 +30,14 @@ Loading...
 
 <h2>🏏 Cricket Prediction</h2>
 
-<h3>India vs Australia</h3>
+<section class="card">
+<h2>🏏 Cricket Prediction</h2>
 
-<p>Prediction : Over 290 Runs ✅</p>
+<div id="cricketTips">
+Loading...
+</div>
 
 <button>Today's Cricket Tips</button>
-
 </section>
 
 <section class="card">
@@ -135,6 +137,35 @@ onValue(ref(db, "footballTips"), (snapshot) => {
     i++;
 
   });
+
+});
+const cricketDiv = document.getElementById("cricketTips");
+
+onValue(ref(db, "cricketTips"), (snapshot) => {
+
+    cricketDiv.innerHTML = "";
+
+    if (!snapshot.exists()) {
+        cricketDiv.innerHTML = "No Cricket Tips Available";
+        return;
+    }
+
+    let i = 1;
+
+    snapshot.forEach((child) => {
+
+        const data = child.val();
+
+        cricketDiv.innerHTML += `
+        <div style="padding:10px;border-bottom:1px solid #555">
+            <b>${i}. ${data.match}</b><br>
+            ${data.prediction}
+        </div>
+        `;
+
+        i++;
+
+    });
 
 });
 </script>
