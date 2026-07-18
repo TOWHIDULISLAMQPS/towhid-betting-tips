@@ -198,33 +198,41 @@ document.getElementById("saveFootball").addEventListener("click", () => {
 
 // SHOW FOOTBALL TIPS
 const footballList = document.getElementById("footballList");
+const footballList = document.getElementById("footballList");
 
 onValue(ref(db, "footballTips"), (snapshot) => {
 
-  footballList.innerHTML = "";
+    footballList.innerHTML = "";
 
-  let i = 1;
+    let i = 1;
 
-  snapshot.forEach((child) => {
+    snapshot.forEach((child) => {
 
-    const key = child.key;
-    const data = child.val();
+        const key = child.key;
+        const data = child.val();
 
-footballList.innerHTML += `
-<div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
-<b>${i}. ${data.match}</b><br>
-${data.prediction}<br><br>
+        footballList.innerHTML += `
+        <div style="padding:10px;margin:10px 0;background:#1a2d45;border-radius:8px">
+            <b>${i}. ${data.match}</b><br>
+            ${data.prediction}<br><br>
 
-<button onclick="editFootball('${key}','${data.match}','${data.prediction}')">
-✏ Edit
-</button>
+            <button onclick="editFootball('${key}','${data.match}','${data.prediction}')">
+            ✏ Edit
+            </button>
 
-<button onclick="deleteFootball('${key}')" style="background:red">
-🗑 Delete
-</button>
+            <button onclick="deleteFootball('${key}')" style="background:red">
+            🗑 Delete
+            </button>
+        </div>
+        `;
 
-</div>
-`;
+        i++;
+
+    });
+
+});
+
+// Delete
 globalThis.deleteFootball = function(key){
 
     if(confirm("Delete this tip?")){
@@ -232,18 +240,22 @@ globalThis.deleteFootball = function(key){
     }
 
 }
-  globalThis.editFootball = function(key,match,prediction){
 
-    const newMatch = prompt("Match Name",match);
-    if(newMatch===null) return;
+// Edit
+globalThis.editFootball = function(key,match,prediction){
 
-    const newPrediction = prompt("Prediction",prediction);
-    if(newPrediction===null) return;
+    const newMatch = prompt("Match Name", match);
+    if(newMatch === null) return;
+
+    const newPrediction = prompt("Prediction", prediction);
+    if(newPrediction === null) return;
 
     set(ref(db,"footballTips/"+key),{
         match:newMatch,
         prediction:newPrediction,
         time:Date.now()
+    }).then(()=>{
+        alert("Updated Successfully");
     });
 
 }
