@@ -117,32 +117,21 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const footballDiv = document.getElementById("footballTips");
+
 onValue(ref(db, "footballTips"), (snapshot) => {
 
-  footballList.innerHTML = "";
+  footballDiv.innerHTML = "";
 
   let i = 1;
 
   snapshot.forEach((child) => {
 
-    const key = child.key;
     const data = child.val();
 
-    footballList.innerHTML += `
+    footballDiv.innerHTML += `
       <div style="padding:10px;border-bottom:1px solid #555">
-
-      <b>${i}. ${data.match}</b><br>
-      ${data.prediction}<br><br>
-
-      <button onclick="editFootball('${key}','${data.match}','${data.prediction}')">
-      ✏ Edit
-      </button>
-
-      <button onclick="deleteFootball('${key}')"
-      style="background:red;margin-top:8px">
-      🗑 Delete
-      </button>
-
+        <b>${i}. ${data.match}</b><br>
+        ${data.prediction}
       </div>
     `;
 
