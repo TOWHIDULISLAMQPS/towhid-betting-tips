@@ -26,12 +26,6 @@ Loading...
 
 </section>
 
-</div>
-
-<button>Today's Football Tips</button>
-
-</section>
-
 <section class="card">
 
 <h2>🏏 Cricket Prediction</h2>
@@ -93,7 +87,6 @@ Loading...
     <a href="admin.html" id="adminLink" style="display:none;">
     🛠 Control Panel
 </a>
-</nav>
 <script src="script.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -102,7 +95,7 @@ import {
   ref,
   onValue
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-const firebaseConfigonfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDn8fTAW2EVv_Q7zhKB1bUdHoZFin1wNqE",
   authDomain: "towhid-betting-tips.firebaseapp.com",
   databaseURL: "https://towhid-betting-tips-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -139,15 +132,6 @@ onValue(ref(db, "footballTips"), (snapshot) => {
   });
 
 });
-window.deleteFootball = function(key){
-
-  if(confirm("Delete this tip?")){
-
-    remove(ref(db,"footballTips/"+key));
-
-  }
-
-}
 
 </script>
 </body>
