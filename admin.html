@@ -537,30 +537,24 @@ remove(ref(db,"cricketTips/"+key));
 /* ==========================
    CRICKET EDIT
 ========================== */
+globalThis.editCricket = function(key, match, prediction){
 
-globalThis.editCricket=function(key,match,prediction){
+    const newMatch = prompt("Match Name", match);
+    if(newMatch === null) return;
 
-const newMatch=prompt("Match Name",match);
+    const newPrediction = prompt("Prediction", prediction);
+    if(newPrediction === null) return;
 
-if(newMatch===null) return;
-
-const newPrediction=prompt("Prediction",prediction);
-
-if(newPrediction===null) return;
-
-set(ref(db,"cricketTips/"+key),{
-
-match:newMatch,
-prediction:newPrediction,
-time:Date.now()
-
-}).then(()=>{
-
-alert("Updated Successfully");
-
-});
+    set(ref(db, "cricketTips/" + key), {
+        match: newMatch,
+        prediction: newPrediction,
+        time: Date.now()
+    }).then(() => {
+        alert("Updated Successfully");
+    });
 
 }
+
 /* ==========================
    VIP SAVE
 ========================== */
